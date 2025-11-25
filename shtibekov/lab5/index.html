@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Лабораторная работа №5 — Fetch, JSON, localStorage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Скрипт для моментального применения темы без "мерцания" -->
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'dark' || savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+          } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="container page-header__inner">
+        <div>
+          <h1 class="page-title">Лабораторная работа №5</h1>
+          <p class="page-subtitle">
+            Fetch, JSON, localStorage, async/await, тосты и работа с сервером.
+          </p>
+        </div>
+
+       <button 
+    type="button" 
+    id="theme-toggle"
+    class="btn btn-ghost" 
+    aria-pressed="false"
+    aria-label="Переключить между светлой и темной темой">
+    Темная тема
+</button>
+      </div>
+    </header>
+
+    <main class="page-main container">
+      <!-- ====== Секция галереи ====== -->
+      <section id="gallery-section" class="task-section">
+        <header class="task-header">
+          <h2>Галерея изображений</h2>
+          <button
+            type="button"
+            id="gallery-refresh"
+            class="btn"
+            aria-label="Обновить галерею"
+          >
+            Обновить галерею
+          </button>
+        </header>
+
+        <p class="task-description">
+          После загрузки страницы автоматически отправляется запрос на сервер
+          для получения списка изображений. При ошибке выполняются до трёх
+          повторов с задержкой. На время загрузки отображается индикатор.
+        </p>
+
+        <div id="gallery-loader" class="loader" role="status">
+          Загрузка изображений…
+        </div>
+
+        <p id="gallery-status" class="status-text" aria-live="polite"></p>
+
+        <div id="gallery-grid" class="gallery-grid" aria-live="polite"></div>
+      </section>
+
+      <!-- ====== Секция температуры ====== -->
+      <section id="temperature-section" class="task-section">
+        <h2>Отправка температуры аудитории</h2>
+
+        <p class="task-description">
+          Введите номер аудитории и текущую температуру. Данные будут отправлены
+          POST-запросом с использованием <code>fetch()</code>. На время ожидания
+          ответа отправка блокируется.
+        </p>
+
+        <form id="temperature-form" class="card" novalidate>
+          <div class="form-field">
+            <label for="room">
+              Аудитория
+              <span class="form-required">(обязательное поле)</span>
+            </label>
+            <input
+              id="room"
+              name="room"
+              type="text"
+              required
+              minlength="1"
+              placeholder="Например: 404А"
+              aria-describedby="room-help"
+            />
+            <p id="room-help" class="form-help">
+              Укажите краткое обозначение аудитории.
+            </p>
+          </div>
+
+          <div class="form-field">
+            <label for="temperature">
+              Температура, °C
+              <span class="form-required">(обязательное поле)</span>
+            </label>
+            <input
+              id="temperature"
+              name="temperature"
+              type="number"
+              step="0.1"
+              required
+              placeholder="Например: 23.5"
+              aria-describedby="temperature-help"
+            />
+            <p id="temperature-help" class="form-help">
+              Число, может быть с десятичной частью.
+            </p>
+          </div>
+
+          <button type="submit" id="temperature-submit" class="btn">
+            Отправить данные
+          </button>
+
+          <p id="temperature-status" class="status-text" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container">
+        <p>
+          ЛР №5. Статическая страница, сохранённая в системе контроля версий.
+          Запросы к серверу выполняются локально (без HTTPS).
+        </p>
+      </div>
+    </footer>
+
+    <!-- Контейнер для тостов -->
+    <div
+      id="toast-container"
+      class="toast-container"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+  </body>
+</html>

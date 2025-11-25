@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Л Р №6 — Объекты, классы, SSE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="container page-header__inner">
+        <div>
+          <h1 class="page-title">Лабораторная работа №6</h1>
+          <p class="page-subtitle">
+            Объекты, классы, наследование, server-sent events и паттерн Наблюдатель.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main container">
+      <!-- ====== Версионирование ====== -->
+      <section id="version-section" class="task-section">
+        <h2>Версионирование (VersionManager)</h2>
+        <p class="task-description">
+          Функция-конструктор <code>VersionManager</code> с методами
+          <code>major</code>, <code>minor</code>, <code>patch</code>,
+          <code>rollback</code> и <code>release</code>.
+        </p>
+
+        <form id="version-form" class="card" novalidate>
+          <div class="form-field">
+            <label for="version-input">
+              Начальная версия (формат MAJOR.MINOR.PATCH)
+            </label>
+            <input
+              id="version-input"
+              name="version"
+              type="text"
+              placeholder="Например: 1.2.4, по умолчанию 0.0.1"
+            />
+          </div>
+
+          <button type="submit" id="version-create" class="btn">
+            Создать менеджер версии
+          </button>
+        </form>
+
+        <p id="version-current" class="status-text">
+          Версия ещё не создана.
+        </p>
+        <p id="version-message" class="status-text status-text--error"></p>
+
+        <div id="version-controls" class="btn-group" hidden>
+          <button type="button" id="version-major" class="btn">
+            major()
+          </button>
+          <button type="button" id="version-minor" class="btn">
+            minor()
+          </button>
+          <button type="button" id="version-patch" class="btn">
+            patch()
+          </button>
+          <button type="button" id="version-rollback" class="btn">
+            rollback()
+          </button>
+        </div>
+      </section>
+
+      <!-- ====== Прямоугольник и квадрат ====== -->
+      <section id="rect-section" class="task-section">
+        <h2>Прямоугольник и квадрат</h2>
+        <p class="task-description">
+          Классы <code>Rectangle</code> и <code>Square</code>, расчёт площади и
+          периметра в зависимости от введённых сторон.
+        </p>
+
+        <form id="rect-form" class="card" novalidate>
+          <div class="form-field">
+            <label for="rect-width">Ширина</label>
+            <input
+              id="rect-width"
+              name="width"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="Например: 5"
+            />
+          </div>
+          <div class="form-field">
+            <label for="rect-height">Высота</label>
+            <input
+              id="rect-height"
+              name="height"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="Например: 10"
+            />
+          </div>
+
+          <div class="btn-group">
+            <button type="button" id="rect-area" class="btn">
+              Площадь
+            </button>
+            <button type="button" id="rect-perimeter" class="btn">
+              Периметр
+            </button>
+          </div>
+        </form>
+
+        <p id="rect-result" class="status-text"></p>
+      </section>
+
+      <!-- ====== Температура ====== -->
+      <section id="temperature-section" class="task-section">
+        <h2>Температура (класс Temperature)</h2>
+
+        <p class="task-description">
+          Два значения температуры в градусах Цельсия, преобразование в выбранную
+          единицу и операции сложения/вычитания.
+        </p>
+
+        <form id="temperature-form" class="card" novalidate>
+          <fieldset class="form-field">
+            <legend>Единицы отображения</legend>
+            <label>
+              <input
+                type="radio"
+                name="temperature-unit"
+                value="c"
+                checked
+              />
+              Цельсий (°C)
+            </label>
+            <label>
+              <input type="radio" name="temperature-unit" value="k" />
+              Кельвин (K)
+            </label>
+            <label>
+              <input type="radio" name="temperature-unit" value="f" />
+              Фаренгейт (°F)
+            </label>
+          </fieldset>
+
+          <div class="form-field">
+            <label for="temp1">Температура 1 (°C)</label>
+            <input
+              id="temp1"
+              name="temp1"
+              type="number"
+              step="0.01"
+              placeholder="Например: 20"
+            />
+            <p id="temp1-display" class="form-help"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="temp2">Температура 2 (°C)</label>
+            <input
+              id="temp2"
+              name="temp2"
+              type="number"
+              step="0.01"
+              placeholder="Например: 5"
+            />
+            <p id="temp2-display" class="form-help"></p>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" id="temp-add" class="btn">
+              Сложить
+            </button>
+            <button type="button" id="temp-subtract" class="btn">
+              Вычесть (1 − 2)
+            </button>
+          </div>
+
+          <p id="temp-result" class="status-text"></p>
+        </form>
+      </section>
+
+      <!-- ====== Камень-ножницы-бумага (SSE + Observer) ====== -->
+      <section id="rps-section" class="task-section">
+        <h2>Камень-ножницы-бумага (SSE + Наблюдатель)</h2>
+
+        <p class="task-description">
+          Текстовая трансляция раундов из потока Server-Sent Events. История
+          раундов, счёт игроков и статистика по выбранным вариантам.
+        </p>
+
+        <div class="btn-group">
+          <button type="button" id="rps-start" class="btn">
+            Следить за играми
+          </button>
+          <button type="button" id="rps-stop" class="btn" disabled>
+            Остановить
+          </button>
+        </div>
+
+        <p id="rps-status" class="status-text"></p>
+
+        <div class="rps-layout">
+          <section class="rps-column">
+            <h3>История раундов</h3>
+            <ul id="rps-history" class="rps-history"></ul>
+          </section>
+
+          <section class="rps-column">
+            <h3>Счёт</h3>
+            <p>
+              Игрок 1: <span id="rps-score-p1">0</span>
+            </p>
+            <p>
+              Игрок 2: <span id="rps-score-p2">0</span>
+            </p>
+            <p>
+              Ничьи: <span id="rps-score-draw">0</span>
+            </p>
+          </section>
+
+          <section class="rps-column">
+            <h3>Статистика ходов</h3>
+            <div class="rps-stats">
+              <div>
+                <h4>Игрок 1</h4>
+                <p>Камень: <span id="rps-p1-rock">0</span></p>
+                <p>Ножницы: <span id="rps-p1-scissors">0</span></p>
+                <p>Бумага: <span id="rps-p1-paper">0</span></p>
+              </div>
+              <div>
+                <h4>Игрок 2</h4>
+                <p>Камень: <span id="rps-p2-rock">0</span></p>
+                <p>Ножницы: <span id="rps-p2-scissors">0</span></p>
+                <p>Бумага: <span id="rps-p2-paper">0</span></p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container">
+        <p>
+          ЛР №6. Статическая страница, сохранённая в системе контроля версий.
+          Запросы к серверу выполняются локально (без HTTPS).
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

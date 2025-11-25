@@ -1,0 +1,168 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #f4f6f9;
+  color: #1f2937;
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- Основные контейнеры --- */
+header, main, footer {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* --- Заголовок --- */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid #e1e6ef;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.06);
+  padding: 20px 18px;
+}
+
+h1 {
+  margin: 0 0 6px 0;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: .2px;
+}
+
+header p {
+  margin: 0;
+  color: #4b5563;
+}
+
+/* --- Сетка навигации --- */
+nav ul {
+  margin: 16px 0 0 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* --- Плитки-ссылки --- */
+nav li {
+  margin: 0;
+  flex: 0 1 240px;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  width: 100%;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e1e6ef;
+  border-radius: 10px;
+  color: #1f2937;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.06);
+  transition: border-color .12s ease, box-shadow .12s ease, background .12s ease;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* По умолчанию (десктоп): одна высота, без переноса, с троеточием */
+nav a{
+  height: 56px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: flex-start;
+}
+
+/* На мобильных даём переносы, чтобы всё было читаемо */
+@media (max-width: 560px){
+  nav a{
+    height: auto;
+    min-height: 56px;
+    white-space: normal;
+    text-overflow: clip;
+  }
+}
+/* Адаптивные брейкпоинты */
+@media (max-width: 1200px) {
+  nav ul { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  nav ul { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  nav ul { grid-template-columns: 1fr; }
+}
+
+/* --- Плитки-ссылки --- */
+nav li { margin: 0; }
+
+nav a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 56px;
+  width: 100%;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e1e6ef;
+  border-radius: 10px;
+  color: #1f2937;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.06);
+  transition: border-color .12s ease, box-shadow .12s ease, background .12s ease;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+nav a:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08), 0 8px 28px rgba(0,0,0,.08);
+}
+
+nav a:visited {
+  color: #7c3aed;
+}
+
+/* --- Основной контент --- */
+main { padding: 18px; }
+
+a {
+  color: #2563eb;
+}
+a:visited {
+  color: #7c3aed;
+}
+
+/* --- Вывод задачи --- */
+pre {
+  background: #ffffff;
+  border: 1px solid #e1e6ef;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.06);
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+}
+
+/* --- Подвал --- */
+footer {
+  background: #ffffff;
+  border-top: 1px solid #e1e6ef;
+  padding: 16px 18px;
+  color: #4b5563;
+  text-align: left;
+}
+
+/* --- Кнопка "назад" на страницах заданий --- */
+header nav a {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 8px;
+}

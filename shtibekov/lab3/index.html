@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lab 3 — Registration Modal</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <!-- ===== ШАПКА (оставляем как в задании) ===== -->
+    <header>
+      <div class="wrapper">
+        <a class="logo" href="#"><h3>Conslital</h3></a>
+
+        <nav class="navbar">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Product</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+
+        <button
+          class="btn-primary-color header-register-button"
+          type="button"
+          data-open-register
+        >
+          Регистрация
+        </button>
+
+        <div class="icons">
+          <button><img src="/data:image/jpeg;base64,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" alt="lens" /></button>
+          <button><img src="data:image/png;base64,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" alt="basket" /></button>
+        </div>
+
+        <div class="menu">
+          <button><img src="/assets/image/icons/menu.svg" alt="menu" /></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО REGISTRATION ===== -->
+    <dialog
+      id="register-dialog"
+      class="dialog"
+      aria-modal="true"
+      aria-labelledby="register-dialog-title"
+    >
+      <div class="dialog__content">
+        <h2 id="register-dialog-title">Регистрация</h2>
+
+        <form id="register-form" novalidate>
+          <!-- Имя -->
+          <div class="form-field">
+            <label for="name">Имя (обязательное поле)</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              minlength="2"
+              aria-describedby="name-error"
+            />
+            <p id="name-error" class="field-error" aria-live="polite" hidden></p>
+          </div>
+
+          <!-- Почта -->
+          <div class="form-field">
+            <label for="email">Электронная почта (обязательное поле)</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              minlength="5"
+              aria-describedby="email-error"
+            />
+            <p id="email-error" class="field-error" aria-live="polite" hidden></p>
+          </div>
+
+          <!-- Пароль -->
+          <div class="form-field">
+            <label for="password">Пароль (не менее 6 символов)</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              minlength="6"
+              aria-describedby="password-error"
+            />
+            <p
+              id="password-error"
+              class="field-error"
+              aria-live="polite"
+              hidden
+            ></p>
+          </div>
+
+          <div class="dialog__buttons">
+            <button type="submit" class="btn-primary-color">Отправить</button>
+
+            <button
+              type="button"
+              class="btn-outline-secondary-color"
+              data-toggle-password
+            >
+              Показать пароль
+            </button>
+
+            <button type="button" class="dialog__close" data-close-dialog>
+              Закрыть
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>

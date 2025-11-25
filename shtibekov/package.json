@@ -1,0 +1,10 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "Для курса заочников по Основам веб-разработки на стороне клиента",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "VVY",
+  "license": "ISC"
+}

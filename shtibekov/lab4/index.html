@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Лабораторная работа №4 — Promises и крафт</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="container">
+        <h1>Лабораторная работа №4 — Promises и крафт</h1>
+        <p>Асинхронность, Promise, случайные данные и создание канцелярских принадлежностей.</p>
+      </div>
+    </header>
+
+    <main class="page-main container">
+      <!-- ================== ЗАДАЧА 1. Resolve ================== -->
+      <section id="task-resolve" class="task-section">
+        <h2>Задача 1. Resolve</h2>
+        <p>
+          Нажмите кнопку, чтобы запустить асинхронную «работу», которая
+          завершится через 2 секунды и вернёт строку <code>«работа сделана»</code>.
+        </p>
+
+        <button type="button" id="job-button" class="btn">
+          Запустить работу
+        </button>
+
+        <p id="job-status" class="status-text" aria-live="polite">
+          Ожидание запуска…
+        </p>
+      </section>
+
+      <!-- ================== ЗАДАЧА 2. Случайные данные и ошибки ================== -->
+      <section id="task-getdata" class="task-section">
+        <h2>Задача 2. Случайные данные и ошибки</h2>
+
+        <p>
+          Функция <code>getData(probability, text)</code> возвращает функцию,
+          которая принимает число, проверяет его, и с заданной вероятностью
+          возвращает строку или <code>null</code>.
+        </p>
+
+        <form id="getdata-form" class="card" novalidate>
+          <div class="form-field">
+            <label for="probability">
+              Вероятность ошибки (0–1, по умолчанию 0.5)
+            </label>
+            <input
+              id="probability"
+              name="probability"
+              type="number"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.5"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="data-text">Строка с данными</label>
+            <input
+              id="data-text"
+              name="data-text"
+              type="text"
+              placeholder="Например: отчёт по продажам"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="data-number">
+              Число (аргумент функции, должен быть числом)
+            </label>
+            <input
+              id="data-number"
+              name="data-number"
+              type="number"
+              placeholder="Например: 42"
+            />
+          </div>
+
+          <button type="submit" class="btn">
+            Получить данные
+          </button>
+
+          <p id="getdata-result" class="status-text" aria-live="polite">
+            Результат будет показан здесь.
+          </p>
+        </form>
+      </section>
+
+      <!-- ================== ЗАДАЧА 3. Крафт ================== -->
+      <section id="task-craft" class="task-section">
+        <h2>Задача 3. Создание канцелярских принадлежностей</h2>
+
+        <p>
+          Система создания канцелярии: бумага → лист → обложка → тетрадь.
+          Каждый предмет создаётся асинхронно, с задержкой и шансом провала.
+        </p>
+
+        <div class="craft-layout">
+          <div class="craft-items">
+            <!-- Бумага -->
+            <article class="craft-item" data-item="paper">
+              <h3> Бумага</h3>
+              <p class="craft-meta">
+                Базовый материал. Время создания: 500&nbsp;мс, шанс провала: 10%.
+              </p>
+              <p class="craft-inventory">
+                В наличии:
+                <span class="craft-count" data-item-count="paper">0</span>
+              </p>
+              <p
+                class="craft-status"
+                data-item-status="paper"
+                aria-live="polite"
+              >
+                Ожидание…
+              </p>
+              <button
+                type="button"
+                class="btn btn-small"
+                data-craft-button="paper"
+              >
+                Создать бумагу
+              </button>
+            </article>
+
+            <!-- Лист -->
+            <article class="craft-item" data-item="sheet">
+              <h3> Лист</h3>
+              <p class="craft-meta">
+                Требуется: 1 бумага. Время создания: 800&nbsp;мс, шанс провала: 15%.
+              </p>
+              <p class="craft-inventory">
+                В наличии:
+                <span class="craft-count" data-item-count="sheet">0</span>
+              </p>
+              <p
+                class="craft-status"
+                data-item-status="sheet"
+                aria-live="polite"
+              >
+                Ожидание…
+              </p>
+              <button
+                type="button"
+                class="btn btn-small"
+                data-craft-button="sheet"
+              >
+                Создать лист
+              </button>
+            </article>
+
+            <!-- Картон -->
+            <article class="craft-item" data-item="cardboard">
+              <h3> Картон</h3>
+              <p class="craft-meta">
+                Базовый материал. Время создания: 1000&nbsp;мс, шанс провала: 20%.
+              </p>
+              <p class="craft-inventory">
+                В наличии:
+                <span class="craft-count" data-item-count="cardboard">0</span>
+              </p>
+              <p
+                class="craft-status"
+                data-item-status="cardboard"
+                aria-live="polite"
+              >
+                Ожидание…
+              </p>
+              <button
+                type="button"
+                class="btn btn-small"
+                data-craft-button="cardboard"
+              >
+                Создать картон
+              </button>
+            </article>
+
+            <!-- Обложка -->
+            <article class="craft-item" data-item="cover">
+              <h3> Обложка</h3>
+              <p class="craft-meta">
+                Требуется: 1 картон. Время создания: 1200&nbsp;мс, шанс провала: 25%.
+              </p>
+              <p class="craft-inventory">
+                В наличии:
+                <span class="craft-count" data-item-count="cover">0</span>
+              </p>
+              <p
+                class="craft-status"
+                data-item-status="cover"
+                aria-live="polite"
+              >
+                Ожидание…
+              </p>
+              <button
+                type="button"
+                class="btn btn-small"
+                data-craft-button="cover"
+              >
+                Создать обложку
+              </button>
+            </article>
+
+            <!-- Тетрадь -->
+            <article class="craft-item" data-item="notebook">
+              <h3> Тетрадь</h3>
+              <p class="craft-meta">
+                Требуется: 5 листов и 1 обложка.
+                Время создания: 1500&nbsp;мс, шанс провала: 30%.
+              </p>
+              <p class="craft-inventory">
+                В наличии:
+                <span class="craft-count" data-item-count="notebook">0</span>
+              </p>
+              <p
+                class="craft-status"
+                data-item-status="notebook"
+                aria-live="polite"
+              >
+                Ожидание…
+              </p>
+              <button
+                type="button"
+                class="btn btn-small"
+                data-craft-button="notebook"
+              >
+                Создать тетрадь
+              </button>
+            </article>
+          </div>
+
+          <aside class="craft-log">
+            <h3> Лог производства</h3>
+            <ul id="craft-log-list" class="craft-log-list"></ul>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container">
+        <p>ЛР №4. Статическая страница, сохранённая в Git и размещённая на Render.</p>
+      </div>
+    </footer>
+  </body>
+</html>
